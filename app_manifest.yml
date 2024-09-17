@@ -1,0 +1,13 @@
+---
+applications:
+- name: ((app_name))
+  instances: 1
+  memory: 32M
+  disk_quota: 64M
+  routes: 
+    - route: ((app_name)).app.cloud.gov
+    - route: ((app_name)).apps.internal
+  env:
+    TRAINING_AB_TEST: ((test_var))
+  buildpacks:
+    - go_buildpack
