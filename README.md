@@ -14,16 +14,19 @@ for i in a_manifest.yml b_manifest.yml ; do cf push -f $i; done
 
 Reload route and you'll see the apps getting cycles.
 
-Problem: These are balanced 50/50. Also, no session persisten
+Problem: These are balanced 50/50. Also, no session persistence
 
 2. Use a proxy 
 
-
+```
 cf add-network-policy pb-ab-test sample-app-a --protocol tcp --port 8080-8443
 cf add-network-policy pb-ab-test sample-app-b --protocol tcp --port 8080-8443
+```
 
-
+Then remove later
+```
 cf network-policies | awk 'f;/source/{f=1}' | awk '{printf "cf remove-network-policy %s %s --protocol %s --port %s\n", $1, $2, $3, $4}'
+```
 
 # README
 
